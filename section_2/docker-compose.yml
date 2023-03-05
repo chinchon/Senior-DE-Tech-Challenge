@@ -1,0 +1,11 @@
+version: "3"
+services:
+  db:
+    image: postgres:13
+    container_name: db
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
