@@ -58,8 +58,9 @@ def main():
     for file in files:
         df = pd.read_csv(file)
         df = clean(df)
-        df[df["is_successful"]].to_csv(f"{PATH_TO_DATA}/successful/{file.name}")
-        df[~df["is_successful"]].to_csv(f"{PATH_TO_DATA}/unsuccessful/{file.name}")
+        columns = ["id", "first_name", "last_name", "email", "date_of_birth"]
+        df.loc[df["is_successful"], columns].to_csv(f"{PATH_TO_DATA}/successful/{file.name}", index=False)
+        df.loc[~df["is_successful"]].to_csv(f"{PATH_TO_DATA}/unsuccessful/{file.name}", index=False)
         file.rename(f"{PATH_TO_DATA}/processed/{file.name}")
 
 
