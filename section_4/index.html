@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Singapore Confirmed Covid Cases</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <canvas id="myChart"></canvas>
+    <script>
+        const url = "https://api.covid19api.com/country/singapore/status/confirmed?from=2020-03-01T00:00:00Z&to=2023-04-01T00:00:00Z"
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                // Process data for chart
+                const chartData = {
+                    labels: [],
+                    datasets: [{
+                        label: 'Confirmed Cases',
+                        data: [],
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                };
+
+                data.forEach(entry => {
+                    chartData.labels.push(entry.Date);
+                    chartData.datasets[0].data.push(entry.Cases);
+                });
+
+
+                // Chart configuration
+                const config = {
+                    type: 'line',
+                    data: chartData,
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: 'Singapore Confirmed Covid Cases'
+                            }
+                        }
+                    },
+                };
+                // Create chart instance
+                var myChart = new Chart(document.getElementById('myChart'), config);
+            });
+    </script>
+</body>
+
+</html>
