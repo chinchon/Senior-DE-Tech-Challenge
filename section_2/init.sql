@@ -27,7 +27,7 @@ create table transactions (
   item_id int,
   FOREIGN KEY (item_id) REFERENCES items(item_id),
   total_item_price float,
-  total_itme_weight float
+  total_item_weight float
 );
 
 -- TODO implement a for loop to load data recursively
